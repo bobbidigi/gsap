@@ -19,17 +19,32 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js"></script>
 
     <script>
-    
+        
+        var tl = new TimelineMax({
+            paused: true,
+             onComplete: function() {
+            //     this.reverse();
+             }
+        });
+
+        tl.to('.panel', 1.5, { scaleY: 1, height: '100vh', ease: Circ.easeOut });
+        tl.to('#light', 1, { opacity: 1, y: 0, delay: 1, ease: Back.easeOut.config(1.7) }, '.5');
+        tl.to('p', 1, { opacity: 1, y: 20 });
+        tl.to('.box', 3, { opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 0.3)}, "-=3.5");
+        tl.reversed(true);
+
         document.getElementById('cta').addEventListener('click', function() {
 
-            TweenMax.to('.panel', 1.5, {scaleY: 1, height:'100vh', ease: Circ.easeOut });
-            TweenMax.to('#light', 1, {opacity: 1, y: 0, delay: 1, ease: Back.easeOut.config(1.7)});
-            TweenMax.to('p', 1, {opacity: 1, y: 20, delay: 1.4});
-            TweenMax.to('.box', 3, {opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 0.3)});
-
-        })
+            // tl.play();
+            tl.reversed(!tl.reversed());
+            if(tl.reversed())
+                tl.reverse();
+            else
+                tl.play();    
+         })
     
     </script>
 </body>
